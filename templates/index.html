@@ -21,6 +21,48 @@
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
 
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        showLog();
+    });
+
+    function showLog() {
+        $.ajax({
+                type: "GET",
+                url: "/write",
+                data: {},
+                async: false,
+
+                success: function (response) {
+                    let logs = response['travel_logs']
+                    console.log(logs)
+
+                    for (let i = 0; i < logs.length; i++) {
+                        let title = logs[i]['title']
+                        let place = logs[i]['place']
+                        let comment = logs[i]['comment']
+                        let date = logs[i]['date']
+
+                        let temp_html = `<div class="card">
+                                            <img class="card-img-top"
+                                                 src="${image}"
+                                                 alt="Card image cap">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${image} <span style="font-size: small">여행지</span></h5>
+                                                <p class="card-text">${comment}</p>
+                                                <p class="card-text"><small class="text-muted">${date}</small></p>
+                                            </div>
+                                        </div>`
+                        $('#cards-box').append(temp_html)
+                    }
+                }
+            })
+        }
+
+        console.log(showLog())
+    </script>
+
     <!-- 구글폰트 -->
     <link
             href="https://fonts.googleapis.com/css?family=Stylish&display=swap"
